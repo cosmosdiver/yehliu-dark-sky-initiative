@@ -49,28 +49,32 @@ export default function ParagraphModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xl
+                 animate-in fade-in duration-300"
       onClick={onClose}
     >
       <div
-        className="max-w-2xl w-full mx-4 p-8 bg-black/60 border border-white/20
-                   backdrop-blur-lg rounded-sm"
+        className="max-w-2xl w-full mx-4 p-8 md:p-10 bg-white/5 border border-white/10
+                   backdrop-blur-2xl rounded-3xl shadow-2xl
+                   animate-in zoom-in-95 duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 標題 */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <div className={`inline-block px-3 py-1 border text-xs tracking-wider mb-2
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex-1">
+            <div className={`inline-block px-4 py-2 border text-xs tracking-wider mb-3
+                           rounded-full backdrop-blur-xl
                            ${getCategoryColor(word.category)}`}>
               {getQuestionTitle(word.category)}
             </div>
-            <h3 className="text-2xl text-white/90 font-light tracking-wide">
+            <h3 className="text-2xl md:text-3xl text-white/90 font-light tracking-wide leading-relaxed">
               {word.text}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="text-white/40 hover:text-white/80 transition-colors"
+            className="ml-4 p-2 text-white/40 hover:text-white/80 hover:bg-white/5
+                       rounded-full transition-all duration-300 hover:scale-110"
             aria-label="關閉"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,21 +85,22 @@ export default function ParagraphModal({
         </div>
 
         {/* 完整段落 */}
-        <div className="space-y-4 text-white/70 leading-relaxed tracking-wide">
-          <p className="text-base font-light whitespace-pre-wrap">
+        <div className="space-y-4 text-white/80 leading-loose tracking-wide">
+          <p className="text-base md:text-lg font-light whitespace-pre-wrap">
             {word.fullText}
           </p>
         </div>
 
         {/* 操作按鈕 */}
-        <div className="flex items-center gap-4 mt-8 pt-6 border-t border-white/10">
+        <div className="flex items-center gap-4 mt-10 pt-8 border-t border-white/10">
           <button
             onClick={() => onCollect?.(word.fullText)}
-            className={`flex items-center gap-2 px-4 py-2 text-sm tracking-wider
-                       border transition-all duration-300
+            className={`flex items-center gap-2 px-6 py-3 text-sm tracking-wider
+                       border transition-all duration-500 rounded-full hover:scale-105
+                       shadow-lg
                        ${isCollected
-                         ? 'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
-                         : 'border-white/20 text-white/60 hover:border-white/40 hover:text-white/90'
+                         ? 'border-yellow-400/50 text-yellow-300 bg-yellow-500/10 hover:bg-yellow-500/20'
+                         : 'border-white/20 text-white/70 hover:border-white/40 hover:text-white/90 hover:bg-white/5'
                        }`}
           >
             <svg className="w-4 h-4" fill={isCollected ? 'currentColor' : 'none'}
@@ -108,8 +113,9 @@ export default function ParagraphModal({
 
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm tracking-wider text-white/60
-                       hover:text-white/90 transition-colors"
+            className="px-6 py-3 text-sm tracking-wider text-white/60
+                       hover:text-white/90 hover:bg-white/5 rounded-full
+                       transition-all duration-300 hover:scale-105"
           >
             繼續探索
           </button>
