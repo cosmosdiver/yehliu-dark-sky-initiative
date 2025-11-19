@@ -49,43 +49,6 @@ export default function ControlPanel({
         )}
       </button>
 
-      {/* 速度控制 */}
-      <div className="px-4 py-4 md:px-7 md:py-6 bg-white/5 backdrop-blur-xl
-                     border border-cyan-400/20 rounded-xl md:rounded-2xl shadow-lg">
-        <div className="text-xs text-cyan-300/60 mb-3 md:mb-4 tracking-wider font-light">
-          速度：{speedMultiplier === 0.3 ? '慢' : speedMultiplier === 0.6 ? '中' : '快'}
-        </div>
-        <div className="flex gap-2 md:gap-3">
-          <button
-            onClick={() => onSpeedChange(0.3)}
-            className={`px-4 py-2 text-xs tracking-wider transition-all duration-300 rounded-xl
-                       ${speedMultiplier === 0.3
-                         ? 'bg-cyan-500/30 text-cyan-200 border border-cyan-400/50'
-                         : 'text-cyan-300/40 hover:text-cyan-300/80 hover:bg-white/5'}`}
-          >
-            慢
-          </button>
-          <button
-            onClick={() => onSpeedChange(0.6)}
-            className={`px-4 py-2 text-xs tracking-wider transition-all duration-300 rounded-xl
-                       ${speedMultiplier === 0.6
-                         ? 'bg-cyan-500/30 text-cyan-200 border border-cyan-400/50'
-                         : 'text-cyan-300/40 hover:text-cyan-300/80 hover:bg-white/5'}`}
-          >
-            中
-          </button>
-          <button
-            onClick={() => onSpeedChange(1.0)}
-            className={`px-4 py-2 text-xs tracking-wider transition-all duration-300 rounded-xl
-                       ${speedMultiplier === 1.0
-                         ? 'bg-cyan-500/30 text-cyan-200 border border-cyan-400/50'
-                         : 'text-cyan-300/40 hover:text-cyan-300/80 hover:bg-white/5'}`}
-          >
-            快
-          </button>
-        </div>
-      </div>
-
       {/* 篩選控制 */}
       <div className="px-4 py-4 md:px-7 md:py-6 bg-white/5 backdrop-blur-xl
                      border border-cyan-400/20 rounded-xl md:rounded-2xl shadow-lg">
