@@ -125,12 +125,12 @@ export default function Home() {
       />
 
       {/* 說明文字 */}
-      <div className="fixed bottom-8 left-8 z-40 px-6 py-4 bg-white/5 backdrop-blur-xl
-                     border border-cyan-400/10 rounded-2xl">
+      <div className="fixed bottom-4 left-4 md:bottom-8 md:left-8 z-40 px-4 py-3 md:px-6 md:py-4 bg-white/5 backdrop-blur-xl
+                     border border-cyan-400/10 rounded-xl md:rounded-2xl">
         <p className="text-cyan-300/40 text-xs tracking-wider font-light">
           點擊文字可展開完整段落
         </p>
-        <p className="text-cyan-300/40 text-xs tracking-wider font-light mt-2">
+        <p className="text-cyan-300/40 text-xs tracking-wider font-light mt-1 md:mt-2">
           ESC 關閉對話框
         </p>
       </div>

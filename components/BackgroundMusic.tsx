@@ -28,6 +28,8 @@ export default function BackgroundMusic({ onMusicStart }: BackgroundMusicProps) 
       playlist: YOUTUBE_VIDEO_ID, // 循環播放需要設定 playlist
       modestbranding: 1,
       rel: 0,
+      playsinline: 1, // 允許在行動裝置上內嵌播放
+      enablejsapi: 1, // 啟用 JavaScript API
     },
   };
 
@@ -82,6 +84,17 @@ export default function BackgroundMusic({ onMusicStart }: BackgroundMusicProps) 
             <p className="text-base md:text-lg text-cyan-300/80 leading-relaxed">
               藝術、文化與自然場域的對話之夜
             </p>
+
+            {/* 建議使用電腦瀏覽器 */}
+            <div className="px-6 py-4 bg-yellow-500/10 border border-yellow-400/30 rounded-2xl">
+              <p className="text-sm text-yellow-300/90 font-light leading-relaxed">
+                💻 建議使用電腦瀏覽器以獲得最佳體驗
+              </p>
+              <p className="text-xs text-yellow-300/60 mt-2 font-light">
+                （行動裝置可能無法播放背景音樂）
+              </p>
+            </div>
+
             <button
               onClick={handleStartMusic}
               className="mt-8 px-10 py-4 text-white bg-cyan-500/20 hover:bg-cyan-500/30
