@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 星空詩意：野柳暗空倡議互動體驗
 
-## Getting Started
+一個極簡詩意的互動網站，呈現「野柳暗空倡議．藝文友誼場」活動參與者對夜晚海岸體驗的深刻感受。
 
-First, run the development server:
+## ✨ 特色
+
+- **流動文字星空**：關鍵詞如星星般緩慢飄過畫面
+- **極簡美學**：黑色背景、白色/淡藍色文字，保持冥想氛圍
+- **互動探索**：點擊文字可暫停並展開完整段落
+- **詞彙星團**：相似概念自動靠近形成視覺連結
+- **背景音樂**：Arvo Pärt 的《Für Alina》營造沉思氛圍
+- **收藏功能**：可以收藏喜歡的句子
+- **慢讀模式**：調整文字流動速度
+- **分類篩選**：只顯示特定問題的回應
+
+## 🎨 設計概念
+
+結合：
+- **方案 A**：星座網絡圖 - 參與者是星星，透過共同關鍵詞形成星座連線
+- **極簡詩意式**：流動文字星空 - 文字本身就是星星，強調閱讀與沉思
+
+## 🚀 開始使用
+
+### 安裝依賴
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 本地開發
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+開啟瀏覽器訪問 [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+### 建置部署
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 部署到 Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. 將專案推送到 GitHub
+2. 在 Vercel 匯入專案
+3. Vercel 會自動偵測 Next.js 並部署
 
-## Deploy on Vercel
+或使用 Vercel CLI：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm install -g vercel
+vercel
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎵 自訂音樂
+
+如要更換背景音樂，請編輯 `components/BackgroundMusic.tsx` 中的 `YOUTUBE_VIDEO_ID`：
+
+```typescript
+const YOUTUBE_VIDEO_ID = 'your-youtube-video-id';
+```
+
+## 📝 資料來源
+
+資料來自「野柳暗空倡議．藝文友誼場」問卷，包含 14 位參與者對以下問題的回應：
+
+1. 在夜晚海岸最想探索的「場域精神」
+2. 藝術或文化在自然場域的影響力
+3. 希望獲得的靈感啟發
+
+## 🛠 技術棧
+
+- **框架**：Next.js 16 (App Router)
+- **樣式**：Tailwind CSS 4
+- **語言**：TypeScript
+- **音樂**：React YouTube
+- **動畫**：CSS Animations
+- **部署**：Vercel
+
+## 📖 互動說明
+
+- **點擊文字**：暫停並展開完整段落
+- **ESC 鍵**：關閉對話框
+- **暫停/繼續**：控制文字流動
+- **速度調整**：慢/中/快三種模式
+- **分類篩選**：顯示特定問題的回應
+- **收藏**：儲存喜歡的段落
+
+## 📄 授權
+
+本專案為「野柳暗空倡議」活動的視覺化作品。
+
+## 🙏 致謝
+
+感謝所有參與「野柳暗空倡議．藝文友誼場」活動並分享感受的朋友們。

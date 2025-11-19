@@ -1,65 +1,139 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect, useMemo } from 'react';
+import BackgroundMusic from '@/components/BackgroundMusic';
+import ParticleBackground from '@/components/ParticleBackground';
+import StarfieldPoetry from '@/components/StarfieldPoetry';
+import ParagraphModal from '@/components/ParagraphModal';
+import ControlPanel from '@/components/ControlPanel';
+import CollectionModal from '@/components/CollectionModal';
+import { processRawData, extractKeywords, generateFloatingWords } from '@/lib/dataProcessor';
+import type { FloatingWord, Response } from '@/types';
 
 export default function Home() {
+  // 資料狀態
+  const [responses, setResponses] = useState<Response[]>([]);
+  const [words, setWords] = useState<FloatingWord[]>([]);
+
+  // UI 狀態
+  const [isPaused, setIsPaused] = useState(false);
+  const [speedMultiplier, setSpeedMultiplier] = useState(0.6); // 預設中速
+  const [filterCategory, setFilterCategory] = useState<'q1' | 'q2' | 'q3' | 'all'>('all');
+
+  // 選中的文字
+  const [selectedWord, setSelectedWord] = useState<FloatingWord | null>(null);
+
+  // 收藏
+  const [collectedTexts, setCollectedTexts] = useState<string[]>([]);
+  const [showCollection, setShowCollection] = useState(false);
+
+  // 載入資料
+  useEffect(() => {
+    const loadedResponses = processRawData();
+    const keywords = extractKeywords(loadedResponses);
+    const floatingWords = generateFloatingWords(loadedResponses, keywords);
+
+    setResponses(loadedResponses);
+    setWords(floatingWords);
+  }, []);
+
+  // 處理文字點擊
+  const handleWordClick = (word: FloatingWord) => {
+    setSelectedWord(word);
+    setIsPaused(true);
+  };
+
+  // 關閉對話框
+  const handleCloseModal = () => {
+    setSelectedWord(null);
+    setIsPaused(false);
+  };
+
+  // 收藏文字
+  const handleCollect = (text: string) => {
+    if (!collectedTexts.includes(text)) {
+      setCollectedTexts([...collectedTexts, text]);
+    } else {
+      setCollectedTexts(collectedTexts.filter(t => t !== text));
+    }
+  };
+
+  // 移除收藏
+  const handleRemoveCollection = (index: number) => {
+    setCollectedTexts(collectedTexts.filter((_, i) => i !== index));
+  };
+
+  // 檢查是否已收藏
+  const isCollected = useMemo(() => {
+    if (!selectedWord) return false;
+    return collectedTexts.includes(selectedWord.fullText);
+  }, [selectedWord, collectedTexts]);
+
+  // 獲取選中文字的完整回應
+  const selectedResponse = useMemo(() => {
+    if (!selectedWord) return null;
+    return responses[selectedWord.responseIndex];
+  }, [selectedWord, responses]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="relative w-full h-screen overflow-hidden">
+      {/* 粒子背景 */}
+      <ParticleBackground />
+
+      {/* 背景音樂 */}
+      <BackgroundMusic />
+
+      {/* 星空文字 */}
+      {words.length > 0 && (
+        <StarfieldPoetry
+          words={words}
+          responses={responses}
+          isPaused={isPaused}
+          onWordClick={handleWordClick}
+          speedMultiplier={speedMultiplier}
+          filterCategory={filterCategory}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+
+      {/* 控制面板 */}
+      <ControlPanel
+        isPaused={isPaused}
+        onPauseToggle={() => setIsPaused(!isPaused)}
+        speedMultiplier={speedMultiplier}
+        onSpeedChange={setSpeedMultiplier}
+        filterCategory={filterCategory}
+        onFilterChange={setFilterCategory}
+        collectedCount={collectedTexts.length}
+        onShowCollection={() => setShowCollection(true)}
+      />
+
+      {/* 段落對話框 */}
+      <ParagraphModal
+        word={selectedWord}
+        response={selectedResponse}
+        onClose={handleCloseModal}
+        onCollect={handleCollect}
+        isCollected={isCollected}
+      />
+
+      {/* 收藏對話框 */}
+      <CollectionModal
+        isOpen={showCollection}
+        onClose={() => setShowCollection(false)}
+        collectedTexts={collectedTexts}
+        onRemove={handleRemoveCollection}
+      />
+
+      {/* 說明文字 */}
+      <div className="fixed bottom-8 left-8 z-40 px-6 py-4 bg-white/5 backdrop-blur-xl
+                     border border-cyan-400/10 rounded-2xl">
+        <p className="text-cyan-300/40 text-xs tracking-wider font-light">
+          點擊文字可展開完整段落
+        </p>
+        <p className="text-cyan-300/40 text-xs tracking-wider font-light mt-2">
+          ESC 關閉對話框
+        </p>
+      </div>
+    </main>
   );
 }
