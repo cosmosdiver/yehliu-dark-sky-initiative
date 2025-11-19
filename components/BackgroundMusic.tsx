@@ -75,38 +75,53 @@ export default function BackgroundMusic({ onMusicStart }: BackgroundMusicProps) 
 
       {/* 開啟聲音按鈕（初始畫面） */}
       {showStartButton && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-2xl bg-black/40">
-          <div className="text-center space-y-8 px-8 py-12 rounded-3xl bg-white/5 backdrop-blur-xl
-                         border border-white/10 shadow-2xl max-w-md mx-4">
-            <h2 className="text-4xl md:text-5xl text-white font-light tracking-wide">
-              野柳暗空倡議
-            </h2>
-            <p className="text-base md:text-lg text-cyan-300/80 leading-relaxed">
-              藝術、文化與自然場域的對話之夜
-            </p>
-            <button
-              onClick={handleStartMusic}
-              className="mt-8 px-10 py-4 text-white bg-cyan-500/20 hover:bg-cyan-500/30
-                         border border-cyan-400/30 hover:border-cyan-400/60
-                         rounded-full transition-all duration-500 hover:scale-105
-                         text-base tracking-widest shadow-lg hover:shadow-cyan-500/20"
-            >
-              開啟聲音體驗
-            </button>
-            <p className="text-sm text-cyan-300/50 mt-4 font-light">
-              Arvo Pärt - Für Alina
-            </p>
-            <a
-              href={`https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-cyan-300/30 hover:text-cyan-300/60 transition-colors
-                         underline underline-offset-2"
-            >
-              音樂來源
-            </a>
+        <>
+          {/* 背景遮罩與彈窗 */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-2xl bg-black/40">
+            <div className="text-center space-y-8 px-8 py-12 rounded-3xl bg-white/5 backdrop-blur-xl
+                           border border-white/10 shadow-2xl max-w-md mx-4">
+              <h2 className="text-4xl md:text-5xl text-white font-light tracking-wide">
+                野柳暗空倡議
+              </h2>
+              <p className="text-base md:text-lg text-cyan-300/80 leading-relaxed">
+                藝術、文化與自然場域的對話之夜
+              </p>
+              <button
+                onClick={handleStartMusic}
+                className="mt-8 px-10 py-4 text-white bg-cyan-500/20 hover:bg-cyan-500/30
+                           border border-cyan-400/30 hover:border-cyan-400/60
+                           rounded-full transition-all duration-500 hover:scale-105
+                           text-base tracking-widest shadow-lg hover:shadow-cyan-500/20"
+              >
+                開啟聲音體驗
+              </button>
+              <p className="text-sm text-cyan-300/50 mt-4 font-light">
+                Arvo Pärt - Für Alina
+              </p>
+              <a
+                href={`https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-cyan-300/30 hover:text-cyan-300/60 transition-colors
+                           underline underline-offset-2"
+              >
+                音樂來源
+              </a>
+            </div>
           </div>
-        </div>
+
+          {/* 獨立的黃色提醒框（在最下面） */}
+          <div className="fixed bottom-4 left-1/2 -translate-x-1/2 md:bottom-8 z-[60]
+                         px-6 py-4 bg-yellow-500/10 backdrop-blur-xl border border-yellow-400/30
+                         rounded-2xl shadow-lg max-w-md mx-4">
+            <p className="text-sm md:text-base text-yellow-300/90 font-light leading-relaxed text-center">
+              💻 建議使用電腦瀏覽器以獲得最佳體驗
+            </p>
+            <p className="text-xs text-yellow-300/60 mt-2 font-light text-center">
+              （行動裝置可能無法播放背景音樂）
+            </p>
+          </div>
+        </>
       )}
 
       {/* 音樂控制按鈕（播放後顯示） */}

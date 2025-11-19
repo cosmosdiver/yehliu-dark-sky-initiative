@@ -134,18 +134,6 @@ export default function Home() {
           ESC 關閉對話框
         </p>
       </div>
-
-      {/* 建議使用電腦瀏覽器提示 */}
-      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-40 px-4 py-3 md:px-6 md:py-4
-                     bg-yellow-500/10 backdrop-blur-xl border border-yellow-400/30
-                     rounded-xl md:rounded-2xl shadow-lg max-w-xs">
-        <p className="text-sm md:text-base text-yellow-300/90 font-light leading-relaxed">
-          💻 建議使用電腦瀏覽器
-        </p>
-        <p className="text-xs text-yellow-300/60 mt-1 md:mt-2 font-light">
-          以獲得最佳體驗與音樂播放
-        </p>
-      </div>
     </main>
   );
 }
